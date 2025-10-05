@@ -10,6 +10,7 @@ use InvalidArgumentException;
 use ReflectionAttribute;
 use ReflectionClass;
 
+use function assert;
 use function sprintf;
 
 final class AttributeLoader implements Loader
@@ -30,6 +31,7 @@ final class AttributeLoader implements Loader
         }
 
         $documentAttribute = $attributes[0]->newInstance();
+        assert($documentAttribute instanceof Document);
 
         return $documentAttribute->createMetadata($reflectionClass);
     }

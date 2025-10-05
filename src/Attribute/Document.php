@@ -11,6 +11,7 @@ use ReflectionClass;
 use ReflectionProperty;
 use RuntimeException;
 
+use function assert;
 use function sprintf;
 
 #[Attribute(Attribute::TARGET_CLASS)]
@@ -42,15 +43,15 @@ final class Document
             }
 
             $fieldAttribute = $attributes[0]->newInstance();
-            $fieldMetadata = $fieldAttribute->createMetadata($reflectionProperty);
+            assert($fieldAttribute instanceof Field);
 
-            $fields[$reflectionProperty->name] = $fieldMetadata;
+            $fields[$reflectionProperty->name] = $fieldAttribute->createMetadata($reflectionProperty);
 
-            if (! ($fieldAttribute instanceof Id)) {
+            if (! $fieldAttribute instanceof Id) {
                 continue;
             }
 
-            $identifier = $fieldMetadata;
+            $identifier = $fields[$reflectionProperty->name];
         }
 
         if (! $identifier) {

@@ -6,10 +6,7 @@ namespace Alcaeus\Metadata;
 
 use ReflectionClass;
 
-/**
- * @template T of object
- * @
- */
+/** @template T of object */
 final class DocumentMetadata implements Metadata
 {
     // phpcs:disable
