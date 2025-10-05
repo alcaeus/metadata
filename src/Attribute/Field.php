@@ -16,6 +16,7 @@ readonly class Field
     ) {
     }
 
+    /** @return FieldMetadata<mixed, mixed> */
     public function createMetadata(ReflectionProperty $reflectionProperty): FieldMetadata
     {
         return new FieldMetadata(

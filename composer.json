@@ -11,7 +11,9 @@
   ],
   "require": {
     "php": "^8.4",
-    "alcaeus/graph": "*@dev"
+    "ext-mongodb": "^2.1",
+    "alcaeus/graph": "*@dev",
+    "mongodb/mongodb": "^2.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^12.4",

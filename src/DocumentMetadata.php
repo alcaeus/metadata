@@ -6,7 +6,10 @@ namespace Alcaeus\Metadata;
 
 use ReflectionClass;
 
-/** @template T of object */
+/**
+ * @template T of object
+ * @
+ */
 final class DocumentMetadata implements Metadata
 {
     // phpcs:disable
@@ -18,7 +21,8 @@ final class DocumentMetadata implements Metadata
 
     /**
      * @param ReflectionClass<T> $class
-     * @param array<string, FieldMetadata> ...$fields
+     * @param FieldMetadata<mixed, mixed> $identifier
+     * @param array<string, FieldMetadata<mixed, mixed>> ...$fields
      */
     public function __construct(
         public readonly ReflectionClass $class,

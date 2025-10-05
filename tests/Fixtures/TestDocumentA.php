@@ -12,7 +12,7 @@ use Alcaeus\Metadata\Attribute\Id;
 class TestDocumentA
 {
     #[Field]
-    public string $notes;
+    public string $notes = '';
 
     public function __construct(
         #[Id]
