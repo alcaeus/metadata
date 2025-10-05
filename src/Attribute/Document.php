@@ -14,7 +14,7 @@ use RuntimeException;
 use function sprintf;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-class Document
+final class Document
 {
     /**
      * @param ReflectionClass<T> $reflectionClass

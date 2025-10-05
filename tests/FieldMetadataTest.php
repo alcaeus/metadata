@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Alcaeus\Metadata\Tests;
 
 use Alcaeus\Metadata\FieldMetadata;
-use Alcaeus\Metadata\Tests\Fixtures\TestDocumentWithDateFields;
 use Alcaeus\Metadata\Type\Type;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 use ReflectionProperty;
 
 #[CoversClass(FieldMetadata::class)]
