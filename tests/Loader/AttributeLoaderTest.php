@@ -4,22 +4,14 @@ declare(strict_types=1);
 
 namespace Alcaeus\Metadata\Tests\Loader;
 
-use Alcaeus\Metadata\Attribute\Document;
-use Alcaeus\Metadata\Attribute\Field;
 use Alcaeus\Metadata\DocumentMetadata;
 use Alcaeus\Metadata\FieldMetadata;
 use Alcaeus\Metadata\Loader\AttributeLoader;
-use Alcaeus\Metadata\Metadata;
 use Alcaeus\Metadata\Tests\Fixtures\TestDocumentA;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversClassesThatExtendClass;
-use PHPUnit\Framework\Attributes\CoversClassesThatImplementInterface;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(AttributeLoader::class)]
-#[CoversClassesThatImplementInterface(Metadata::class)]
-#[CoversClass(Document::class)]
-#[CoversClassesThatExtendClass(Field::class)]
 class AttributeLoaderTest extends TestCase
 {
     private AttributeLoader $loader;
