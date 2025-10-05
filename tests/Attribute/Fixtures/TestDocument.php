@@ -35,4 +35,7 @@ class TestDocument
 
     #[Field]
     private NativeDateTime|DateTimeImmutable $unionTypedField;
+
+    #[Field]
+    private array $arrayFieldWithoutPHPDoc;
 }

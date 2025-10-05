@@ -8,6 +8,7 @@ use Alcaeus\Metadata\Attribute\Field;
 use Alcaeus\Metadata\FieldMetadata;
 use Alcaeus\Metadata\Tests\Attribute\Fixtures\TestDocument;
 use Alcaeus\Metadata\Type\DateTime;
+use Alcaeus\Metadata\Type\PackedArray;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
@@ -83,5 +84,16 @@ class FieldTest extends TestCase
 
         self::assertInstanceOf(FieldMetadata::class, $metadata);
         self::assertNull($metadata->type);
+    }
+
+    public function testTypeGuessingForArrayFieldWithoutPHPDoc(): void
+    {
+        $reflectionProperty = new ReflectionProperty(TestDocument::class, 'arrayFieldWithoutPHPDoc');
+        $field = new Field();
+
+        $metadata = $field->createMetadata($reflectionProperty);
+
+        self::assertInstanceOf(FieldMetadata::class, $metadata);
+        self::assertInstanceOf(PackedArray::class, $metadata->type);
     }
 }

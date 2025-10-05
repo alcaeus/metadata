@@ -6,6 +6,7 @@ namespace Alcaeus\Metadata\Attribute;
 
 use Alcaeus\Metadata\FieldMetadata;
 use Alcaeus\Metadata\Type\DateTime;
+use Alcaeus\Metadata\Type\PackedArray;
 use Alcaeus\Metadata\Type\Type;
 use Attribute;
 use DateTime as NativeDateTime;
@@ -23,7 +24,7 @@ use function is_a;
 #[Attribute(Attribute::TARGET_PROPERTY)]
 readonly class Field
 {
-    /** @param null|Type<BSONType, NativeType> $type */
+    /** @param Type<BSONType, NativeType>|null $type */
     public function __construct(
         public ?string $fieldName = null,
         public ?Type $type = null,
@@ -40,13 +41,18 @@ readonly class Field
         );
     }
 
-    /** @return null|Type<BSONType, NativeType> */
+    /** @return Type<BSONType, NativeType>|null */
     protected function guessType(ReflectionProperty $reflectionProperty): ?Type
     {
         $propertyType = $reflectionProperty->getType();
 
         if ($this->isDateTimeType($propertyType)) {
             return new DateTime($propertyType->getName());
+        }
+
+        if ($this->isArray($propertyType)) {
+            // TODO: Guess nested type
+            return new PackedArray();
         }
 
         return null;
@@ -61,5 +67,10 @@ readonly class Field
 
         return is_a($type->getName(), NativeDateTime::class, true)
             || is_a($type->getName(), DateTimeImmutable::class, true);
+    }
+
+    protected function isArray(ReflectionType $type): bool
+    {
+        return $type instanceof ReflectionNamedType && $type->getName() === 'array';
     }
 }
