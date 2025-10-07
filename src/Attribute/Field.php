@@ -7,6 +7,7 @@ namespace Alcaeus\Metadata\Attribute;
 use Alcaeus\Metadata\FieldMetadata;
 use Alcaeus\Metadata\Type\DateTime;
 use Alcaeus\Metadata\Type\PackedArray;
+use Alcaeus\Metadata\Type\Raw;
 use Alcaeus\Metadata\Type\Type;
 use Attribute;
 use DateTime as NativeDateTime;
@@ -18,20 +19,19 @@ use ReflectionType;
 use function is_a;
 
 /**
- * @template BSONType
- * @template NativeType
+ * @template T of Type
  */
 #[Attribute(Attribute::TARGET_PROPERTY)]
 readonly class Field
 {
-    /** @param Type<BSONType, NativeType>|null $type */
+    /** @param T|null $type */
     public function __construct(
         public ?string $fieldName = null,
         public ?Type $type = null,
     ) {
     }
 
-    /** @return FieldMetadata<BSONType, NativeType> */
+    /** @return FieldMetadata<T> */
     public function createMetadata(ReflectionProperty $reflectionProperty): FieldMetadata
     {
         return new FieldMetadata(
@@ -41,8 +41,8 @@ readonly class Field
         );
     }
 
-    /** @return Type<BSONType, NativeType>|null */
-    protected function guessType(ReflectionProperty $reflectionProperty): ?Type
+    /** @return T */
+    protected function guessType(ReflectionProperty $reflectionProperty): Type
     {
         $propertyType = $reflectionProperty->getType();
 
@@ -55,7 +55,7 @@ readonly class Field
             return new PackedArray();
         }
 
-        return null;
+        return new Raw();
     }
 
     /** @phpstan-assert-if-true ReflectionNamedType $type */

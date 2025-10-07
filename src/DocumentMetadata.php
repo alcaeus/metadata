@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Alcaeus\Metadata;
 
+use Alcaeus\Metadata\Type\Type;
 use ReflectionClass;
 
 /** @template T of object */
@@ -18,8 +19,8 @@ final class DocumentMetadata implements Metadata
 
     /**
      * @param ReflectionClass<T> $class
-     * @param FieldMetadata<mixed, mixed> $identifier
-     * @param array<string, FieldMetadata<mixed, mixed>> ...$fields
+     * @param FieldMetadata<Type<mixed, mixed>> $identifier
+     * @param array<string, FieldMetadata<Type<mixed, mixed>>> ...$fields
      */
     public function __construct(
         public readonly ReflectionClass $class,
