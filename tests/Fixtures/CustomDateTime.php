@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Alcaeus\Metadata\Tests\Fixtures;
+namespace Alcaeus\Tests\Metadata\Fixtures;
 
 use DateTime as BaseDateTime;
 

@@ -8,9 +8,7 @@ use Alcaeus\Metadata\Type\Raw;
 use Alcaeus\Metadata\Type\Type;
 use ReflectionProperty;
 
-/**
- * @template T of Type
- */
+/** @template T of Type */
 class FieldMetadata implements Metadata
 {
     // phpcs:disable

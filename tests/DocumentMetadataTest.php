@@ -7,8 +7,9 @@ namespace Alcaeus\Metadata\Tests;
 use Alcaeus\Metadata\DocumentMetadata;
 use Alcaeus\Metadata\FieldMetadata;
 use Alcaeus\Metadata\Metadata;
-use Alcaeus\Metadata\Tests\Fixtures\TestDocumentA;
+use Alcaeus\Metadata\Type\Raw;
 use Alcaeus\Metadata\Type\Type;
+use Alcaeus\Tests\Metadata\Fixtures\TestDocumentA;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -189,7 +190,7 @@ class DocumentMetadataTest extends TestCase
         );
 
         self::assertSame($mockType, $documentMetadata->fields['name']->type);
-        self::assertNull($documentMetadata->fields['id']->type);
+        self::assertInstanceOf(Raw::class, $documentMetadata->fields['id']->type);
     }
 
     public function testWithDifferentClassTypes(): void

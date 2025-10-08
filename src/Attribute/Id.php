@@ -8,7 +8,7 @@ use Alcaeus\Metadata\Type\Type;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
-final readonly class Id extends Field
+final class Id extends Field
 {
     public function __construct(?Type $type = null)
     {

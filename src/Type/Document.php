@@ -38,6 +38,11 @@ final readonly class Document implements Type, DocumentCodec
         return $value instanceof $this->metadata->className;
     }
 
+    /**
+     * @param BSONDocument $value
+     *
+     * @return DocumentType
+     */
     public function decode(mixed $value): object
     {
         $object = $this->metadata->class->newLazyGhost(
@@ -72,6 +77,7 @@ final readonly class Document implements Type, DocumentCodec
         return $object;
     }
 
+    /** @param DocumentType $value */
     public function encode(mixed $value): BSONDocument
     {
         $fields = [];

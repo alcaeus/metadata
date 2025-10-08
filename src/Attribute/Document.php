@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Alcaeus\Metadata\Attribute;
 
 use Alcaeus\Metadata\DocumentMetadata;
+use Alcaeus\Metadata\DocumentMetadataStore;
 use Attribute;
 use ReflectionAttribute;
 use ReflectionClass;
@@ -24,7 +25,7 @@ final class Document
      *
      * @template T of object
      */
-    public function createMetadata(ReflectionClass $reflectionClass): DocumentMetadata
+    public function createMetadata(ReflectionClass $reflectionClass, DocumentMetadataStore $store): DocumentMetadata
     {
         $identifier = null;
         $fields = [];
@@ -45,7 +46,7 @@ final class Document
             $fieldAttribute = $attributes[0]->newInstance();
             assert($fieldAttribute instanceof Field);
 
-            $fields[$reflectionProperty->name] = $fieldAttribute->createMetadata($reflectionProperty);
+            $fields[$reflectionProperty->name] = $fieldAttribute->createMetadata($reflectionProperty, $store);
 
             if (! $fieldAttribute instanceof Id) {
                 continue;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Alcaeus\Metadata\Tests\Type;
+namespace Alcaeus\Tests\Metadata\Type;
 
-use Alcaeus\Metadata\Tests\Fixtures\CustomDateTime;
 use Alcaeus\Metadata\Type\DateTime;
+use Alcaeus\Tests\Metadata\Fixtures\CustomDateTime;
 use DateTime as NativeDateTime;
 use DateTimeImmutable;
 use DateTimeZone;

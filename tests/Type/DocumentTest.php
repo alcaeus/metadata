@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Alcaeus\Metadata\Tests\Type;
+namespace Alcaeus\Tests\Metadata\Type;
 
 use Alcaeus\Metadata\DocumentMetadata;
+use Alcaeus\Metadata\DocumentMetadataStore;
 use Alcaeus\Metadata\Loader\AttributeLoader;
-use Alcaeus\Metadata\Tests\Fixtures\TestDocumentA;
 use Alcaeus\Metadata\Type\Document;
+use Alcaeus\Tests\Metadata\Fixtures\TestDocumentA;
 use MongoDB\BSON\Document as BSONDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +29,7 @@ class DocumentTest extends TestCase
 
     private function getMetadataForClass(string $className): DocumentMetadata
     {
-        return (new AttributeLoader())->load($className);
+        return (new AttributeLoader())->load($className, new DocumentMetadataStore());
     }
 
     public function testCanDecodeReturnsTrueForBSONDocument(): void

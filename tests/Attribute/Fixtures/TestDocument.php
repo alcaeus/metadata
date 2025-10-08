@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Alcaeus\Metadata\Tests\Attribute\Fixtures;
+namespace Alcaeus\Tests\Metadata\Attribute\Fixtures;
 
 use Alcaeus\Metadata\Attribute\Document;
 use Alcaeus\Metadata\Attribute\Field;
@@ -38,4 +38,21 @@ class TestDocument
 
     #[Field]
     private array $arrayFieldWithoutPHPDoc;
+
+    /** @var list<string> */
+    #[Field]
+    private array $arrayFieldWithPHPDocAsListOfStrings;
+
+    #[Field]
+    private DocumentWithOnlyIdentifier $embeddedDocument;
+
+    /** @var list<DocumentWithOnlyIdentifier> */
+    #[Field]
+    private array $embeddedDocumentsWithPHPDoc;
+
+    /*
+     * TODO: This no longer works as we're autodetecting types. PHPDoc only for now
+    #[Embedded(class: DocumentWithOnlyIdentifier::class)]
+    private array $embeddedDocumentsWithoutPHPDoc;
+    */
 }

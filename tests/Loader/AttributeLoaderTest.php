@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Alcaeus\Metadata\Tests\Loader;
+namespace Alcaeus\Tests\Metadata\Loader;
 
 use Alcaeus\Metadata\DocumentMetadata;
+use Alcaeus\Metadata\DocumentMetadataStore;
+use Alcaeus\Metadata\Exception\Loader\UnmappedClass;
 use Alcaeus\Metadata\FieldMetadata;
 use Alcaeus\Metadata\Loader\AttributeLoader;
-use Alcaeus\Metadata\Tests\Fixtures\TestDocumentA;
+use Alcaeus\Tests\Metadata\Fixtures\TestDocumentA;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -15,15 +17,24 @@ use PHPUnit\Framework\TestCase;
 class AttributeLoaderTest extends TestCase
 {
     private AttributeLoader $loader;
+    private DocumentMetadataStore $store;
 
     protected function setUp(): void
     {
         $this->loader = new AttributeLoader();
+        $this->store = new DocumentMetadataStore($this->loader);
+    }
+
+    public function testLoadMetadataForUnmappedClass(): void
+    {
+        $this->expectExceptionObject(new UnmappedClass(self::class));
+
+        $this->loader->load(self::class, $this->store);
     }
 
     public function testLoadMetadata(): void
     {
-        $metadata = $this->loader->load(TestDocumentA::class);
+        $metadata = $this->loader->load(TestDocumentA::class, $this->store);
 
         self::assertInstanceOf(DocumentMetadata::class, $metadata);
         self::assertSame(TestDocumentA::class, $metadata->className);

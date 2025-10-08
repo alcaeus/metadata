@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Alcaeus\Metadata\Tests;
 
 use Alcaeus\Metadata\FieldMetadata;
+use Alcaeus\Metadata\Type\Raw;
 use Alcaeus\Metadata\Type\Type;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +32,7 @@ class FieldMetadataTest extends TestCase
 
         self::assertSame($reflectionProperty, $fieldMetadata->property);
         self::assertSame('test_field', $fieldMetadata->fieldName);
-        self::assertNull($fieldMetadata->type);
+        self::assertInstanceOf(Raw::class, $fieldMetadata->type);
     }
 
     public function testPropertyNameGetter(): void

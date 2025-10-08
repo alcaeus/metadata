@@ -7,9 +7,7 @@ namespace Alcaeus\Metadata\Type;
 use MongoDB\Codec\DecodeIfSupported;
 use MongoDB\Codec\EncodeIfSupported;
 
-/**
- * @template-implements Type<mixed, mixed>
- */
+/** @template-implements Type<mixed, mixed> */
 final readonly class Raw implements Type
 {
     /** @use DecodeIfSupported<mixed, mixed> */
@@ -28,9 +26,11 @@ final readonly class Raw implements Type
     }
 
     /**
-     * @template T
      * @param T $value
+     *
      * @return T
+     *
+     * @template T
      */
     public function decode(mixed $value): mixed
     {
@@ -38,9 +38,11 @@ final readonly class Raw implements Type
     }
 
     /**
-     * @template T
      * @param T $value
+     *
      * @return T
+     *
+     * @template T
      */
     public function encode(mixed $value): mixed
     {
