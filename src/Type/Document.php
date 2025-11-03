@@ -16,15 +16,15 @@ use ReflectionClass;
  * @template-implements DocumentCodec<DocumentType>
  * @template-implements Type<BSONDocument, DocumentType>
  */
-final readonly class Document implements Type, DocumentCodec
+final readonly class Document implements Type, DocumentCodec, HasDocumentMetadata
 {
     /** @use DecodeIfSupported<BSONDocument, DocumentType> */
     use DecodeIfSupported;
     /** @use EncodeIfSupported<BSONDocument, DocumentType> */
     use EncodeIfSupported;
 
-    /** @param DocumentMetadata<DocumentType> $metadata */
-    public function __construct(private DocumentMetadata $metadata)
+    /** @param DocumentMetadata<DocumentType> $documentMetadata */
+    public function __construct(public private(set) DocumentMetadata $documentMetadata)
     {
     }
 
@@ -35,7 +35,7 @@ final readonly class Document implements Type, DocumentCodec
 
     public function canEncode(mixed $value): bool
     {
-        return $value instanceof $this->metadata->className;
+        return $value instanceof $this->documentMetadata->className;
     }
 
     /**
@@ -45,7 +45,7 @@ final readonly class Document implements Type, DocumentCodec
      */
     public function decode(mixed $value): object
     {
-        $object = $this->metadata->class->newLazyGhost(
+        $object = $this->documentMetadata->class->newLazyGhost(
             function (object $object) use ($value): void {
                 /**
                  * TODO: iterating over the metadata fields leads to loads of random accesses in the BSON document.
@@ -56,9 +56,9 @@ final readonly class Document implements Type, DocumentCodec
                  * having a more efficient BSON document in future that allows indexing the entire document before
                  * working with it, returning just keys, etc.
                  */
-                foreach ($this->metadata->fields as $field) {
+                foreach ($this->documentMetadata->fields as $field) {
                     // The identifier is already initialised, no need to do it again
-                    if ($field === $this->metadata->identifier) {
+                    if ($field === $this->documentMetadata->identifier) {
                         continue;
                     }
 
@@ -72,7 +72,7 @@ final readonly class Document implements Type, DocumentCodec
             ReflectionClass::SKIP_INITIALIZATION_ON_SERIALIZE,
         );
 
-        $this->metadata->identifier->setEncodedValue($object, $value->get($this->metadata->identifier->fieldName));
+        $this->documentMetadata->identifier->setEncodedValue($object, $value->get($this->documentMetadata->identifier->fieldName));
 
         return $object;
     }
@@ -81,7 +81,7 @@ final readonly class Document implements Type, DocumentCodec
     public function encode(mixed $value): BSONDocument
     {
         $fields = [];
-        foreach ($this->metadata->fields as $field) {
+        foreach ($this->documentMetadata->fields as $field) {
             $fields[$field->fieldName] = $field->getEncodedValue($value);
         }
 
