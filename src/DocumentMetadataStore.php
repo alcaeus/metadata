@@ -8,7 +8,7 @@ use Alcaeus\Graph\Graph;
 use Alcaeus\Metadata\Exception\Loader\UnmappedClass;
 use Alcaeus\Metadata\Loader\AttributeLoader;
 use Alcaeus\Metadata\Loader\Loader;
-use Alcaeus\Metadata\Type\Reference\Reference;
+use Alcaeus\Metadata\Type\HasDocumentMetadata;
 use Alcaeus\Metadata\Type\Type;
 
 final readonly class DocumentMetadataStore
@@ -62,6 +62,13 @@ final readonly class DocumentMetadataStore
         return $this->graph->hasNode($className);
     }
 
+    /**
+     * @param class-string<T> $className
+     *
+     * @return DocumentMetadata<T>
+     *
+     * @template T of object
+     */
     public function loadMetadata(string $className): DocumentMetadata
     {
         $metadata = $this->loader->load($className, $this);
@@ -69,12 +76,11 @@ final readonly class DocumentMetadataStore
         $this->graph->addNode($className, $metadata);
 
         foreach ($metadata->fields as $field) {
-            // TODO: make this generic for all types that are relationships
-            if (! $field->type instanceof Reference) {
+            if (! $field->type instanceof HasDocumentMetadata) {
                 continue;
             }
 
-            $this->graph->connect($className, $field->type->metadata->documentMetadata->className, $field);
+            $this->graph->connect($className, $field->type->metadata->className, $field);
         }
 
         return $metadata;

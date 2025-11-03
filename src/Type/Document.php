@@ -16,7 +16,7 @@ use ReflectionClass;
  * @template-implements DocumentCodec<DocumentType>
  * @template-implements Type<BSONDocument, DocumentType>
  */
-final readonly class Document implements Type, DocumentCodec
+final readonly class Document implements Type, DocumentCodec, HasDocumentMetadata
 {
     /** @use DecodeIfSupported<BSONDocument, DocumentType> */
     use DecodeIfSupported;
@@ -24,7 +24,7 @@ final readonly class Document implements Type, DocumentCodec
     use EncodeIfSupported;
 
     /** @param DocumentMetadata<DocumentType> $metadata */
-    public function __construct(private DocumentMetadata $metadata)
+    public function __construct(public private(set) DocumentMetadata $metadata)
     {
     }
 
