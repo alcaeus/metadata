@@ -37,6 +37,7 @@ class TestDocument
     private NativeDateTime|DateTimeImmutable $unionTypedField;
 
     #[Field]
+    // @phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification
     private array $arrayFieldWithoutPHPDoc;
 
     /** @var list<string> */

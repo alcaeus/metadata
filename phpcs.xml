@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
-<ruleset name="Alcaeus Graph">
+<ruleset name="alcaeus/metadata">
     <description>Coding standard for Alcaeus Metadata library</description>
 
     <!-- Use Doctrine Coding Standard -->
     <rule ref="Doctrine"/>
 
     <!-- Disable specific sniffs -->
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <severity>0</severity>
+    </rule>
     <rule ref="Generic.Formatting.MultipleStatementAlignment.NotSame">
         <severity>0</severity>
     </rule>

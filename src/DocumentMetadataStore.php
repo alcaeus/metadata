@@ -8,8 +8,8 @@ use Alcaeus\Graph\Graph;
 use Alcaeus\Metadata\Exception\Loader\UnmappedClass;
 use Alcaeus\Metadata\Loader\AttributeLoader;
 use Alcaeus\Metadata\Loader\Loader;
-use Alcaeus\Metadata\Type\Type;
 use Alcaeus\Metadata\Type\Reference\Reference;
+use Alcaeus\Metadata\Type\Type;
 
 final readonly class DocumentMetadataStore
 {
