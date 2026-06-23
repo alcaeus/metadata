@@ -17,15 +17,21 @@ use function is_array;
  * @template ItemNativeType
  * @template-implements Type<BSONPackedArray, array>
  */
-final readonly class PackedArray implements Type
+final class PackedArray implements Type
 {
     /** @use DecodeIfSupported<BSONPackedArray, array> */
     use DecodeIfSupported;
     /** @use EncodeIfSupported<BSONPackedArray, array> */
     use EncodeIfSupported;
 
+    // phpcs:disable
+    public ?Type $wrappedType {
+        get => $this->itemType;
+    }
+    // phpcs:enable
+
     /** @param Type<ItemBSONType, ItemNativeType>|null $itemType */
-    public function __construct(private ?Type $itemType = null)
+    public function __construct(private readonly ?Type $itemType = null)
     {
     }
 

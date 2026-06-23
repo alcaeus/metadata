@@ -7,6 +7,7 @@ namespace Alcaeus\Tests\Metadata\Attribute\Fixtures;
 use Alcaeus\Metadata\Attribute\Document;
 use Alcaeus\Metadata\Attribute\Field;
 use Alcaeus\Metadata\Attribute\Id;
+use Alcaeus\Metadata\Attribute\Reference;
 use Alcaeus\Metadata\Type\DateTime;
 use DateTime as NativeDateTime;
 use DateTimeImmutable;
@@ -56,4 +57,26 @@ class TestDocument
     #[Embedded(class: DocumentWithOnlyIdentifier::class)]
     private array $embeddedDocumentsWithoutPHPDoc;
     */
+
+    #[Reference\AsDbRef('test')]
+    private TestDocument $dbRefReferencedDocument;
+
+    #[Reference\AsId('test')]
+    private TestDocument $idReferencedDocument;
+
+    /** @var TestDocument */
+    #[Reference\AsDbRef('test')]
+    private $dbRefReferencedDocumentWithoutType;
+
+    /** @var TestDocument */
+    #[Reference\AsId('test')]
+    private $idReferencedDocumentWithoutType;
+
+    /** @var list<TestDocument> */
+    #[Reference\AsDbRef('test')]
+    private array $dbRefReferencedDocuments;
+
+    /** @var list<TestDocument> */
+    #[Reference\AsId('test')]
+    private array $idReferencedDocuments;
 }
